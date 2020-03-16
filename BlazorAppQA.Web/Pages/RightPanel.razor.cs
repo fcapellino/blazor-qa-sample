@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using BlazorAppQA.Infrastructure.CommandHandlers.GetStatisticsHandler;
 using BlazorAppQA.Infrastructure.Common;
 using BlazorAppQA.Web.Common;
@@ -8,7 +11,9 @@ namespace BlazorAppQA.Web.Pages
 {
     public class RightPanelComponent : CustomComponentBase
     {
-        public dynamic Statistics { get; set; }
+        public int TotalQuestions { get; set; }
+        public int TotalAnswers { get; set; }
+        public IEnumerable<dynamic> TopUsersList { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -16,7 +21,10 @@ namespace BlazorAppQA.Web.Pages
             {
                 using var getStatisticsCommandHandler = ServiceProvider.GetService<GetStatisticsCommandHandler>();
                 object result = await getStatisticsCommandHandler.HandleAsync(new GetStatisticsCommand());
-                Statistics = result.ToExpando();
+
+                TotalQuestions = Convert.ToInt32(result.ToExpando().TotalQuestions);
+                TotalAnswers = Convert.ToInt32(result.ToExpando().TotalAnswers);
+                TopUsersList = (result.ToExpando().TopUsersList as IEnumerable<object>).Select(x => x.ToExpando());
             });
         }
     }

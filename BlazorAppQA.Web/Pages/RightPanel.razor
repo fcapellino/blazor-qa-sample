@@ -7,47 +7,37 @@
     </div>
 </div>
 
-@if (Statistics != null)
-{
-    <div class="card mb-3">
-        <div class="card-body" style="font-size:15px;">
-            <div style="width:50%;float:left;text-align:center;">
-                <b>QUESTIONS: @Statistics.TotalQuestions.ToString("D3")</b>
-            </div>
-            <div style="width:50%;float:right;text-align:center;">
-                <b>ANSWERS: @Statistics.TotalAnswers.ToString("D3")</b>
-            </div>
+<div class="card mb-3">
+    <div class="card-body" style="font-size:15px;">
+        <div style="width:50%;float:left;text-align:center;">
+            <b>QUESTIONS: @TotalQuestions.ToString("D3")</b>
+        </div>
+        <div style="width:50%;float:right;text-align:center;">
+            <b>ANSWERS: @TotalAnswers.ToString("D3")</b>
         </div>
     </div>
-}
+</div>
 
 <div class="card mb-3">
-    <h3 class="card-header">Most popular users</h3>
-    <ol class="list-group list-group-flush">
-        <li class="list-group-item d-flex justify-content-between align-items-center"
-            style="border-bottom:none;padding-top:5px;padding-bottom:5px;">
-            <a href="#" class="text-primary">1) Morbi leo risus a</a>
-            <span class="badge badge-secondary">10 A</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center"
-            style="border-bottom:none;padding-top:5px;padding-bottom:5px;">
-            <a href="#" class="text-primary">2) Scelerisque ante sollicitudin</a>
-            <span class="badge badge-secondary">20 A</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center"
-            style="border-bottom:none;padding-top:5px;padding-bottom:5px;">
-            <a href="#" class="text-primary">3) Morbi leo risus asdfg</a>
-            <span class="badge badge-secondary">05 A</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center"
-            style="border-bottom:none;padding-top:5px;padding-bottom:5px;">
-            <a href="#" class="text-primary">4) Ante sollicitudin icitudin</a>
-            <span class="badge badge-secondary">20 A</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center"
-            style="border-bottom:none;padding-top:5px;padding-bottom:5px;">
-            <a href="#" class="text-primary">5) Morbi leo risus</a>
-            <span class="badge badge-secondary">05 A</span>
-        </li>
-    </ol>
+    <h3 class="card-header">Most active users</h3>
+    @if (TopUsersList != null)
+    {
+        <ol class="list-group list-group-flush">
+            @for (var i = 0; i < TopUsersList.Count(); i++)
+            {
+                var index = i + 1;
+                dynamic user = TopUsersList.ElementAt(i);
+                <li class="list-group-item d-flex justify-content-between align-items-center" style="border-bottom:none;padding-top:5px;padding-bottom:5px;">
+                    <a href="/users/@user.Id" class="text-primary">@($"{index})") @user.UserName</a>
+                    <span class="badge badge-secondary">ANS: @user.AnswersProvided.ToString("D2")</span>
+                </li>
+            }
+        </ol>
+    }
+    else
+    {
+        <div class="card-body">
+            <small>NO DATA AVAILABLE</small>
+        </div>
+    }
 </div>
