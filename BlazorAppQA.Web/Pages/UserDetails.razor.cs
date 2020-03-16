@@ -19,8 +19,8 @@ namespace BlazorAppQA.Web.Pages
             {
                 if (!string.IsNullOrEmpty(Id))
                 {
-                    using var getUserommandHandler = ServiceProvider.GetService<GetUserCommandHandler>();
-                    object result = await getUserommandHandler.HandleAsync(new GetUserCommand()
+                    using var getUserCommandHandler = ServiceProvider.GetService<GetUserCommandHandler>();
+                    object result = await getUserCommandHandler.HandleAsync(new GetUserCommand()
                     {
                         ProtectedId = Id
                     });

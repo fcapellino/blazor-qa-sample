@@ -28,7 +28,6 @@
     <Folder Include="CommandHandlers\InsertNewAnswerHandler\" />
     <Folder Include="CommandHandlers\GetQuestionHandler\" />
     <Folder Include="CommandHandlers\GetQuestionsListHandler\" />
-    <Folder Include="CommandHandlers\GetStatisticsHandler\" />
     <Folder Include="CommandHandlers\AcceptAnswerHandler\" />
     <Folder Include="CommandHandlers\SelectBestAnswerHandler\" />
     <Folder Include="Migrations\" />

@@ -1,20 +1,25 @@
-﻿<div class="card mb-3">
+﻿@inherits RightPanelComponent
+
+<div class="card mb-3">
     <h3 class="card-header">Welcome</h3>
     <div class="card-body">
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
     </div>
 </div>
 
-<div class="card mb-3">
-    <div class="card-body" style="font-size:15px;">
-        <div style="width:50%;float:left;text-align:center;">
-            <b>QUESTIONS: 500</b>
-        </div>
-        <div style="width:50%;float:right;text-align:center;">
-            <b>ANSWERS: 1500</b>
+@if (Statistics != null)
+{
+    <div class="card mb-3">
+        <div class="card-body" style="font-size:15px;">
+            <div style="width:50%;float:left;text-align:center;">
+                <b>QUESTIONS: @Statistics.TotalQuestions.ToString("D3")</b>
+            </div>
+            <div style="width:50%;float:right;text-align:center;">
+                <b>ANSWERS: @Statistics.TotalAnswers.ToString("D3")</b>
+            </div>
         </div>
     </div>
-</div>
+}
 
 <div class="card mb-3">
     <h3 class="card-header">Most popular users</h3>
