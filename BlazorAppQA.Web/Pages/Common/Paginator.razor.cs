@@ -10,7 +10,7 @@ namespace BlazorAppQA.Web.Pages.Common
         public int TotalItemsCount { get; set; }
 
         [Parameter]
-        public int CurrentPage { get; set; } = 1;
+        public int CurrentPage { get; set; }
 
         [Parameter]
         public int PageSize { get; set; }

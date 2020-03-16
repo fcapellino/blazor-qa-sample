@@ -62,6 +62,7 @@ namespace BlazorAppQA.Web
                 });
             #endregion
 
+            services.AddDataProtection();
             services.AddRazorPages();
             services.AddServerSideBlazor();
         }

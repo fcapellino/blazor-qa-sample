@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using BlazorAppQA.Infrastructure.ApplicationContext;
 using BlazorAppQA.Infrastructure.BaseCommandHandler;
 using BlazorAppQA.Infrastructure.Common;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,9 +13,12 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.GetUsersListHandler
 {
     public class GetUsersListCommandHandler : BaseCommandHandler<GetUsersListCommand>
     {
+        private readonly IDataProtector _dataProtector;
+
         public GetUsersListCommandHandler(IServiceProvider provider)
             : base(provider)
         {
+            _dataProtector = provider.GetService<IDataProtectionProvider>().CreateProtector(Assembly.GetExecutingAssembly().FullName);
         }
 
         public override async Task<dynamic> HandleAsync(GetUsersListCommand command)
@@ -34,6 +39,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.GetUsersListHandler
                 .ApplyPaging(command.Page, command.PageSize)
                 .Select(u => new
                 {
+                    Id = _dataProtector.Protect(u.Id.ToString()),
                     u.UserName,
                     u.Biography,
                     u.Base64AvatarImage,

@@ -5,7 +5,7 @@
     <div class="col-md-8 order-md-1">
         <div class="row">
             <div class="input-group col-md-12 mb-3">
-                <input type="text" @bind="SearchQuery" class="form-control" placeholder="search terms" aria-describedby="button-addon2" style="height:auto;">
+                <input type="text" @bind="SearchQuery" @onkeyup="OnKeyUpEventAsync" class="form-control" placeholder="search terms" aria-describedby="button-addon2" style="height:auto;">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" id="button-addon2" @onclick="OnSearchAsync">Search</button>
                 </div>
@@ -36,7 +36,7 @@
             }
         </div>
         <div style="margin-top:10px;">
-            <Paginator TotalItemsCount="@TotalUsersCount" PageSize="3" PageChanged="@OnPageChangeAsync"></Paginator>
+            <Paginator TotalItemsCount="@TotalUsersCount" CurrentPage="@CurrentPage" PageSize="@PageSize" PageChanged="@OnPageChangeAsync"></Paginator>
         </div>
     </div>
     <div class="col-md-4 order-md-2">
