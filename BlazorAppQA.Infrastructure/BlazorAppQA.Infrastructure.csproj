@@ -26,12 +26,11 @@
   <ItemGroup>
     <Folder Include="CommandHandlers\InsertNewQuestionHandler\" />
     <Folder Include="CommandHandlers\InsertNewAnswerHandler\" />
-    <Folder Include="CommandHandlers\GetUserHandler\" />
     <Folder Include="CommandHandlers\GetQuestionHandler\" />
     <Folder Include="CommandHandlers\GetQuestionsListHandler\" />
     <Folder Include="CommandHandlers\GetStatisticsHandler\" />
     <Folder Include="CommandHandlers\AcceptAnswerHandler\" />
-    <Folder Include="CommandHandlers\VoteForAnswerHandler\" />
+    <Folder Include="CommandHandlers\SelectBestAnswerHandler\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 

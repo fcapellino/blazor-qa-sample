@@ -1,49 +1,56 @@
-﻿@page "/users/x"
+﻿@page "/users/{Id}"
+@inherits UserDetailsComponent
 
 <div class="row">
     <div class="col-md-12">
-        <div class="card mb-3">
-            <h3 class="card-header">User details</h3>
-            <div class="card-body">
-                <div class="panel panel-info">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-3 col-lg-3 mb-3"><img src="https://png.pngtree.com/png-clipart/20190922/original/pngtree-business-male-user-avatar-vector-png-image_4774078.jpg" style="border:1px solid black;" alt="Smiley face" height="230" width="230"></div>
-                            <div class=" col-md-9 col-lg-9 ">
-                                <table class="table table-user-information">
-                                    <tbody>
-                                        <tr>
-                                            <td>Username</td>
-                                            <td>Programming Sanders</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email</td>
-                                            <td><a href="mailto:info@support.com">info@support.com</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Linked In profile</td>
-                                            <td><a href="https://ar.linkedin.com/in/tomas-canusso">https://ar.linkedin.com/in/tomas-canusso</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Registration date</td>
-                                            <td>30/06/1990</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Statistics</td>
-                                            <td>Questions asked: <strong>10</strong> &nbsp&nbsp Questions answered: <strong>50</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Biography</td>
-                                            <td>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+        @if (RegisteredUser != null)
+        {
+            <div class="card mb-3">
+                <h3 class="card-header">User details</h3>
+                <div class="card-body">
+                    <div class="panel panel-info">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-3 col-lg-3 mb-3"><img src="data:image/jpeg;base64,@RegisteredUser.Base64AvatarImage" style="border:1px solid black;" alt="Smiley face" height="230" width="230"></div>
+                                <div class=" col-md-9 col-lg-9 ">
+                                    <table class="table table-user-information">
+                                        <tbody>
+                                            <tr>
+                                                <td>Username</td>
+                                                <td>@RegisteredUser.UserName</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email</td>
+                                                <td><a href="mailto:@RegisteredUser.Email">@RegisteredUser.Email</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Linked In profile</td>
+                                                <td><a href="@RegisteredUser.LinkedinProfileUrl" target="_blank">@RegisteredUser.LinkedinProfileUrl</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Registration date</td>
+                                                <td>@RegisteredUser.RegistrationDate.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Statistics</td>
+                                                <td>Questions asked: <strong>@RegisteredUser.TotalQuestions</strong> &nbsp&nbsp Total answers: <strong>@RegisteredUser.TotalAnswers</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Biography</td>
+                                                <td>@RegisteredUser.Biography</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <small>NO DATA AVAILABLE</small>
+        }
     </div>
 </div>

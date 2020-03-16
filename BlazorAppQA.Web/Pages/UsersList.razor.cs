@@ -70,5 +70,13 @@ namespace BlazorAppQA.Web.Pages
                 CurrentPage = page;
             });
         }
+
+        public async Task OnViewDetailsAsync(string id)
+        {
+            await ExecuteAsync(async () =>
+            {
+                NavigationManager.NavigateTo($"/users/{id}");
+            });
+        }
     }
 }
