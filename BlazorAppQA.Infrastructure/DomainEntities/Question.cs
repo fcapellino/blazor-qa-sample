@@ -28,6 +28,10 @@ namespace BlazorAppQA.Infrastructure.Domain
         [Required, MaxLength(1600)]
         public string Description { get; set; }
 
+        [ForeignKey("Category")]
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+
         [Required, EditorBrowsable(EditorBrowsableState.Never)]
         public string TagsArray { get; set; }
 

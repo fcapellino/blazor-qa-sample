@@ -1,8 +1,8 @@
-﻿using BlazorAppQA.Infrastructure.Domain;
+﻿using System.Linq;
+using BlazorAppQA.Infrastructure.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace BlazorAppQA.Infrastructure.ApplicationContext
 {
@@ -23,9 +23,10 @@ namespace BlazorAppQA.Infrastructure.ApplicationContext
             base.OnModelCreating(builder);
         }
 
+        public DbSet<Answer> Answers { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<QuestionImage> QuestionImages { get; set; }
-        public DbSet<Answer> Answers { get; set; }
         public DbSet<Vote> Votes { get; set; }
     }
 }

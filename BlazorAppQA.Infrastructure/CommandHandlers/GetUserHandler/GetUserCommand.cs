@@ -2,6 +2,6 @@
 {
     public class GetUserCommand
     {
-        public string ProtectedId { get; set; }
+        public string ProtectedUserId { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -8,6 +9,7 @@ using BlazorAppQA.Infrastructure.ApplicationContext;
 using BlazorAppQA.Infrastructure.BaseCommandHandler;
 using BlazorAppQA.Infrastructure.Common;
 using BlazorAppQA.Infrastructure.Domain;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,12 +19,14 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.InsertNewQuestionHandler
     public class InsertNewQuestionCommandHandler : BaseCommandHandler<InsertNewQuestionCommand>
     {
         private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly IDataProtector _dataProtector;
         private readonly HttpContext _httpContext;
 
         public InsertNewQuestionCommandHandler(IServiceProvider provider)
             : base(provider)
         {
             _hostingEnvironment = provider.GetService<IWebHostEnvironment>();
+            _dataProtector = provider.GetService<IDataProtectionProvider>().CreateProtector(Assembly.GetExecutingAssembly().FullName);
             _httpContext = provider.GetService<IHttpContextAccessor>().HttpContext;
         }
 
@@ -36,11 +40,12 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.InsertNewQuestionHandler
                 var tagsArray = command.Tags.Split(";", StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim().ToLowerInvariant());
                 var newQuestion = new Question()
                 {
-                    UserId = int.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)),
-                    Date = DateTime.Now,
                     Title = command.Title.Trim(),
+                    TagsArray = string.Join(";", tagsArray),
+                    CategoryId = int.Parse(_dataProtector.Unprotect(command.ProtectedCategoryId)),
                     Description = command.Description.Trim(),
-                    TagsArray = string.Join(";", tagsArray)
+                    UserId = int.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)),
+                    Date = DateTime.Now
                 };
 
                 applicationDbContext.Questions.Add(newQuestion);

@@ -1,5 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using BlazorAppQA.Infrastructure.CommandHandlers.GetCategoriesHandler;
 using BlazorAppQA.Infrastructure.CommandHandlers.InsertNewQuestionHandler;
+using BlazorAppQA.Infrastructure.Common;
 using BlazorAppQA.Web.Common;
 using BlazorInputFile;
 using Microsoft.AspNetCore.Authorization;
@@ -11,6 +15,18 @@ namespace BlazorAppQA.Web.Pages
     public class NewQuestionComponent : CustomComponentBase
     {
         public InsertNewQuestionCommand InsertNewQuestionCommand { get; set; } = new InsertNewQuestionCommand();
+        public IEnumerable<dynamic> CategoriesList { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            await ExecuteAsync(async () =>
+            {
+                using var getCategoriesCommandHandler = ServiceProvider.GetService<GetCategoriesCommandHandler>();
+                dynamic result = await getCategoriesCommandHandler.HandleAsync(new GetCategoriesCommand());
+
+                CategoriesList = (result.ItemsList as IEnumerable<object>).Select(x => x.ToExpando());
+            });
+        }
 
         public async Task HandleFileSelectedAsync(IFileListEntry[] files)
         {

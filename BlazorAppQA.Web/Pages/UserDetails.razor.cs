@@ -22,7 +22,7 @@ namespace BlazorAppQA.Web.Pages
                     using var getUserCommandHandler = ServiceProvider.GetService<GetUserCommandHandler>();
                     object result = await getUserCommandHandler.HandleAsync(new GetUserCommand()
                     {
-                        ProtectedId = Id
+                        ProtectedUserId = Id
                     });
 
                     RegisteredUser = result.ToExpando();

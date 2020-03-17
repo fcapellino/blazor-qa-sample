@@ -25,7 +25,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.GetUserHandler
         {
             using var scope = _serviceScopeFactory.CreateScope();
             using var applicationDbContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
-            var userId = int.Parse(_dataProtector.Unprotect(command.ProtectedId));
+            var userId = int.Parse(_dataProtector.Unprotect(command.ProtectedUserId));
 
             var registeredUser = await applicationDbContext.Users
                 .Where(u => u.Id == userId)

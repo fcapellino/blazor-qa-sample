@@ -9,6 +9,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.InsertNewQuestionHandler
     {
         public string Title { get; set; }
         public string Tags { get; set; }
+        public string ProtectedCategoryId { get; set; }
         public string Description { get; set; }
         public IFileListEntry[] Files { get; set; }
     }
@@ -24,10 +25,10 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.InsertNewQuestionHandler
 
             RuleFor(x => x.Tags)
                 .NotEmpty()
-                .Must(x =>
-                {
-                    return Regex.IsMatch(x, @"[^;]+");
-                });
+                .Must(x => Regex.IsMatch(x, @"[^;]+"));
+
+            RuleFor(x => x.ProtectedCategoryId)
+                .NotEmpty();
 
             RuleFor(x => x.Description)
                 .NotEmpty()

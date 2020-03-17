@@ -16,10 +16,24 @@
                             <input type="text" class="form-control" @bind="InsertNewQuestionCommand.Title">
                             <ValidationMessage For="@(() => InsertNewQuestionCommand.Title)" class="text-danger" style="font-size:x-small;font-style:italic;" />
                         </div>
-                        <div class="col-md-6 mt-2">
-                            <label>Add a list of tags separated by semicolons</label>
+                        <div class="col-md-3 mt-2">
+                            <label>Add a list of tags</label>
                             <input type="text" class="form-control" @bind="InsertNewQuestionCommand.Tags">
                             <ValidationMessage For="@(() => InsertNewQuestionCommand.Tags)" class="text-danger" style="font-size:x-small;font-style:italic;" />
+                        </div>
+                        <div class="col-md-3 mt-2">
+                            <label>Category</label>
+                            <select @bind="InsertNewQuestionCommand.ProtectedCategoryId" class="form-control">
+                                @if (CategoriesList != null)
+                                {
+                                    <option value=""></option>
+                                    @foreach (var category in CategoriesList)
+                                    {
+                                        <option value="@category.Id">@category.Name</option>
+                                    }
+                                }
+                            </select>
+                            <ValidationMessage For="@(() => InsertNewQuestionCommand.ProtectedCategoryId)" class="text-danger" style="font-size:x-small;font-style:italic;" />
                         </div>
                     </div>
                     <div class="form-row mt-3">

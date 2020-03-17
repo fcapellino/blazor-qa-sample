@@ -27,7 +27,6 @@
   <ItemGroup>
     <Folder Include="CommandHandlers\InsertNewAnswerHandler\" />
     <Folder Include="CommandHandlers\GetQuestionHandler\" />
-    <Folder Include="CommandHandlers\GetQuestionsListHandler\" />
     <Folder Include="CommandHandlers\SelectBestAnswerHandler\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
