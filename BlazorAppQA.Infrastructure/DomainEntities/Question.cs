@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
 namespace BlazorAppQA.Infrastructure.Domain
 {
     [Table("Questions")]
     public sealed class Question
     {
+        public Question()
+        {
+            QuestionImages = new List<QuestionImage>();
+            QuestionAnswers = new List<Answer>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -25,13 +30,6 @@ namespace BlazorAppQA.Infrastructure.Domain
 
         [Required, EditorBrowsable(EditorBrowsableState.Never)]
         public string TagsArray { get; set; }
-
-        [NotMapped]
-        public string[] Tags
-        {
-            get => TagsArray?.Split("|");
-            set => TagsArray = string.Join("|", value.Select(t => t.ToUpper()));
-        }
 
         [Required]
         public DateTime Date { get; set; }

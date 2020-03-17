@@ -6,6 +6,8 @@ using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,6 +48,8 @@ namespace BlazorAppQA.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<ApplicationUser>>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             #region REGISTERING HANDLERS DYNAMICALLY
             var type = typeof(BCH.BaseCommandHandler<>);
@@ -55,6 +59,7 @@ namespace BlazorAppQA.Web
             #endregion
 
             #region REGISTERING VALIDATORS
+            ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
             AssemblyScanner.FindValidatorsInAssemblyContaining<ApplicationDbContext>()
                 .ForEach(pair =>
                 {

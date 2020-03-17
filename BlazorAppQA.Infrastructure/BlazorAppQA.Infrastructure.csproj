@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BlazorInputFile" Version="0.1.0-preview-00002" />
     <PackageReference Include="FluentValidation" Version="8.6.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.2" />
@@ -24,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="CommandHandlers\InsertNewQuestionHandler\" />
     <Folder Include="CommandHandlers\InsertNewAnswerHandler\" />
     <Folder Include="CommandHandlers\GetQuestionHandler\" />
     <Folder Include="CommandHandlers\GetQuestionsListHandler\" />

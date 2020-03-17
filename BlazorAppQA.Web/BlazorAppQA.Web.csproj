@@ -24,4 +24,8 @@
     <ProjectReference Include="..\BlazorAppQA.Infrastructure\BlazorAppQA.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\qimages\" />
+  </ItemGroup>
+
 </Project>

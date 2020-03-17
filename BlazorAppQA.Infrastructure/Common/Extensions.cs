@@ -1,5 +1,8 @@
-﻿using System.Dynamic;
+﻿using System;
+using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace BlazorAppQA.Infrastructure.Common
@@ -19,6 +22,11 @@ namespace BlazorAppQA.Infrastructure.Common
             }
 
             return query.Skip((page - 1) * pageSize).Take(pageSize);
+        }
+
+        public static async Task ForEachAsync<T>(this IEnumerable<T> enumerable, Func<T, Task> action)
+        {
+            await Task.WhenAll(enumerable.Select(item => action(item)));
         }
 
         public static dynamic ToExpando(this object obj)

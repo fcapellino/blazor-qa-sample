@@ -75,7 +75,7 @@ namespace BlazorAppQA.Web.Pages
         {
             await ExecuteAsync(async () =>
             {
-                NavigationManager.NavigateTo($"/users/{id}");
+                await Task.FromResult(0).ContinueWith(t => NavigationManager.NavigateTo($"/users/{id}"));
             });
         }
     }
