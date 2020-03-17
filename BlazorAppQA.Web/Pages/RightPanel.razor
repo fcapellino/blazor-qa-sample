@@ -28,7 +28,7 @@
                 var index = i + 1;
                 dynamic user = TopUsersList.ElementAt(i);
                 <li class="list-group-item d-flex justify-content-between align-items-center" style="border-bottom:none;padding-top:5px;padding-bottom:5px;">
-                    <a href="/users/@user.Id" class="text-primary">@($"{index})") @user.UserName</a>
+                    <a href="/users/@user.ProtectedId" class="text-primary">@($"{index})") @user.UserName</a>
                     <span class="badge badge-secondary">ANS: @user.AnswersProvided.ToString("D2")</span>
                 </li>
             }

@@ -11,18 +11,22 @@ namespace BlazorAppQA.Web.Pages
 {
     public class UsersListComponent : CustomComponentBase
     {
-        public int TotalUsersCount { get; set; }
+        public string SearchQuery { get; set; }
         public int CurrentPage { get; set; } = 1;
         public int PageSize { get; set; } = 3;
+        public int TotalUsersCount { get; set; }
         public IEnumerable<dynamic> UsersList { get; set; }
-        public string SearchQuery { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             await ExecuteAsync(async () =>
             {
                 using var getUsersListCommandHandler = ServiceProvider.GetService<GetUsersListCommandHandler>();
-                dynamic result = await getUsersListCommandHandler.HandleAsync(new GetUsersListCommand());
+                dynamic result = await getUsersListCommandHandler.HandleAsync(new GetUsersListCommand()
+                {
+                    Page = 1,
+                    PageSize = PageSize
+                });
 
                 TotalUsersCount = result.TotalItemCount;
                 UsersList = (result.ItemsList as IEnumerable<object>).Select(x => x.ToExpando());
@@ -44,8 +48,9 @@ namespace BlazorAppQA.Web.Pages
                 using var getUsersListCommandHandler = ServiceProvider.GetService<GetUsersListCommandHandler>();
                 dynamic result = await getUsersListCommandHandler.HandleAsync(new GetUsersListCommand()
                 {
+                    SearchQuery = SearchQuery,
                     Page = 1,
-                    SearchQuery = SearchQuery
+                    PageSize = PageSize
                 });
 
                 UsersList = (result.ItemsList as IEnumerable<object>).Select(x => x.ToExpando());
@@ -61,8 +66,9 @@ namespace BlazorAppQA.Web.Pages
                 using var getUsersListCommandHandler = ServiceProvider.GetService<GetUsersListCommandHandler>();
                 dynamic result = await getUsersListCommandHandler.HandleAsync(new GetUsersListCommand()
                 {
+                    SearchQuery = SearchQuery,
                     Page = page,
-                    SearchQuery = SearchQuery
+                    PageSize = PageSize
                 });
 
                 UsersList = (result.ItemsList as IEnumerable<object>).Select(x => x.ToExpando());
@@ -71,11 +77,11 @@ namespace BlazorAppQA.Web.Pages
             });
         }
 
-        public async Task OnViewDetailsAsync(string id)
+        public async Task OnViewDetailsAsync(string protectedId)
         {
             await ExecuteAsync(async () =>
             {
-                await Task.FromResult(0).ContinueWith(t => NavigationManager.NavigateTo($"/users/{id}"));
+                await Task.FromResult(0).ContinueWith(t => NavigationManager.NavigateTo($"/users/{protectedId}"));
             });
         }
     }

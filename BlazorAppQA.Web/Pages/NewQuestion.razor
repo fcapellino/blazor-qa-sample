@@ -26,10 +26,10 @@
                             <select @bind="InsertNewQuestionCommand.ProtectedCategoryId" class="form-control">
                                 @if (CategoriesList != null)
                                 {
-                                    <option value=""></option>
+                                    <option disabled selected value="" style="font-style:italic;">select a category</option>
                                     @foreach (var category in CategoriesList)
                                     {
-                                        <option value="@category.Id">@category.Name</option>
+                                        <option value="@category.ProtectedId">@category.Name</option>
                                     }
                                 }
                             </select>

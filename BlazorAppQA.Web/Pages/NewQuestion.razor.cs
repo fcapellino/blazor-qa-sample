@@ -21,8 +21,8 @@ namespace BlazorAppQA.Web.Pages
         {
             await ExecuteAsync(async () =>
             {
-                using var getCategoriesCommandHandler = ServiceProvider.GetService<GetCategoriesCommandHandler>();
-                dynamic result = await getCategoriesCommandHandler.HandleAsync(new GetCategoriesCommand());
+                using var getCategoriesCommandHandler = ServiceProvider.GetService<GetCategoriesListCommandHandler>();
+                dynamic result = await getCategoriesCommandHandler.HandleAsync(new GetCategoriesListCommand());
 
                 CategoriesList = (result.ItemsList as IEnumerable<object>).Select(x => x.ToExpando());
             });
@@ -39,6 +39,7 @@ namespace BlazorAppQA.Web.Pages
             {
                 using var insertNewQuestionCommandHandler = ServiceProvider.GetService<InsertNewQuestionCommandHandler>();
                 await insertNewQuestionCommandHandler.HandleAsync(InsertNewQuestionCommand);
+                await ShowSuccessMessageAsync("Your question has been successfully submitted.");
                 NavigationManager.NavigateTo(@"/");
             });
         }

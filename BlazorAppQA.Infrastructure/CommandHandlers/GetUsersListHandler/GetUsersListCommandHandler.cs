@@ -39,7 +39,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.GetUsersListHandler
                 .ApplyPaging(command.Page, command.PageSize)
                 .Select(u => new
                 {
-                    Id = _dataProtector.Protect(u.Id.ToString()),
+                    ProtectedId = _dataProtector.Protect(u.Id.ToString()),
                     u.UserName,
                     u.Biography,
                     u.Base64AvatarImage,

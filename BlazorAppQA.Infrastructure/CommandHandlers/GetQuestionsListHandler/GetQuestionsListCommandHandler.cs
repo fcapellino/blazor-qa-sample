@@ -32,6 +32,12 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.GetQuestionsListHandler
                 .OrderByDescending(q => q.Date)
                 .AsQueryable();
 
+            if (!string.IsNullOrWhiteSpace(command.ProtectedCategoryId) && !command.ProtectedCategoryId.Equals("0"))
+            {
+                var categoryId = int.Parse(_dataProtector.Unprotect(command.ProtectedCategoryId));
+                query = query.Where(q => q.CategoryId == categoryId);
+            }
+
             if (!string.IsNullOrWhiteSpace(command.SearchQuery))
             {
                 query = query.Where(q => (q.User.Email + q.User.UserName + q.Title + q.TagsArray + q.Description).ToLower().Contains(command.SearchQuery.ToLower().Trim()));
@@ -41,10 +47,15 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.GetQuestionsListHandler
                 .ApplyPaging(command.Page, command.PageSize)
                 .Select(q => new
                 {
-                    Id = _dataProtector.Protect(q.Id.ToString()),
+                    ProtectedId = _dataProtector.Protect(q.Id.ToString()),
                     q.Title,
                     q.Description,
                     q.Date,
+                    User = new
+                    {
+                        ProtectedId = _dataProtector.Protect(q.User.Id.ToString()),
+                        q.User.UserName
+                    },
                     Tags = q.TagsArray.Split(";", StringSplitOptions.None),
                     TotalAnswers = q.QuestionAnswers.Count,
                     CategoryName = q.Category.Name

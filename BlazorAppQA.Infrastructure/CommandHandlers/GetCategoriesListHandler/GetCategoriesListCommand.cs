@@ -1,6 +1,6 @@
 ﻿namespace BlazorAppQA.Infrastructure.CommandHandlers.GetCategoriesHandler
 {
-    public class GetCategoriesCommand
+    public class GetCategoriesListCommand
     {
     }
 }

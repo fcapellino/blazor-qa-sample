@@ -11,17 +11,17 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BlazorAppQA.Infrastructure.CommandHandlers.GetCategoriesHandler
 {
-    public class GetCategoriesCommandHandler : BaseCommandHandler<GetCategoriesCommand>
+    public class GetCategoriesListCommandHandler : BaseCommandHandler<GetCategoriesListCommand>
     {
         private readonly IDataProtector _dataProtector;
 
-        public GetCategoriesCommandHandler(IServiceProvider provider)
+        public GetCategoriesListCommandHandler(IServiceProvider provider)
             : base(provider)
         {
             _dataProtector = provider.GetService<IDataProtectionProvider>().CreateProtector(Assembly.GetExecutingAssembly().FullName);
         }
 
-        public override async Task<dynamic> HandleAsync(GetCategoriesCommand command)
+        public override async Task<dynamic> HandleAsync(GetCategoriesListCommand command)
         {
             using var scope = _serviceScopeFactory.CreateScope();
             using var applicationDbContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
@@ -30,7 +30,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.GetCategoriesHandler
                 .OrderBy(c => c.Name)
                 .Select(c => new
                 {
-                    Id = _dataProtector.Protect(c.Id.ToString()),
+                    ProtectedId = _dataProtector.Protect(c.Id.ToString()),
                     c.Name
                 })
                 .ToListAsync();

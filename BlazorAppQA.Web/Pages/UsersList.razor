@@ -12,11 +12,11 @@
             </div>
         </div>
         <div class="list-group">
-            @if (UsersList != null)
+            @if (UsersList != null && UsersList.Any())
             {
                 @foreach (dynamic user in UsersList)
                 {
-                    <div class="list-group-item list-group-item-action flex-column align-items-start" style="cursor:pointer;" @onclick="@(()=>OnViewDetailsAsync(user.Id.ToString()))">
+                    <div class="list-group-item list-group-item-action flex-column align-items-start" style="cursor:pointer;" @onclick="@(()=>OnViewDetailsAsync(user.ProtectedId.ToString()))">
                         <div class="media position-relative">
                             <div class="mr-3 mt-1">
                                 <img src="data:image/jpeg;base64,@user.Base64AvatarImage" style="border:1px solid black;" alt="Smiley face" height="100" width="100">

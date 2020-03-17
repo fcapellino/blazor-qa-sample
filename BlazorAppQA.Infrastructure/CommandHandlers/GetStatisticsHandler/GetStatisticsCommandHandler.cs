@@ -33,7 +33,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.GetStatisticsHandler
                .Take(5)
                .Select(u => new
                {
-                   Id = _dataProtector.Protect(u.Id.ToString()),
+                   ProtectedId = _dataProtector.Protect(u.Id.ToString()),
                    u.UserName,
                    AnswersProvided = u.UserAnswers.Count
                })

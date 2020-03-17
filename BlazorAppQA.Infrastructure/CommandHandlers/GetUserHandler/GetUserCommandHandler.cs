@@ -31,7 +31,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.GetUserHandler
                 .Where(u => u.Id == userId)
                 .Select(u => new
                 {
-                    Id = _dataProtector.Protect(u.Id.ToString()),
+                    ProtectedId = _dataProtector.Protect(u.Id.ToString()),
                     u.UserName,
                     u.Email,
                     u.LinkedinProfileUrl,
