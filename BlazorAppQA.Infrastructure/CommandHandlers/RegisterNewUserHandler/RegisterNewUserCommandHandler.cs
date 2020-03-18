@@ -20,7 +20,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.RegisterNewUserHandler
             _signInManager = provider.GetService<SignInManager<ApplicationUser>>();
         }
 
-        public override async Task<dynamic> HandleAsync(RegisterNewUserCommand command)
+        protected override async Task<dynamic> ExecuteAsync(RegisterNewUserCommand command)
         {
             using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {

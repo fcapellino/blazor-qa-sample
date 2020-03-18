@@ -30,7 +30,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.InsertNewQuestionHandler
             _httpContext = provider.GetService<IHttpContextAccessor>().HttpContext;
         }
 
-        public override async Task<dynamic> HandleAsync(InsertNewQuestionCommand command)
+        protected override async Task<dynamic> ExecuteAsync(InsertNewQuestionCommand command)
         {
             using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {

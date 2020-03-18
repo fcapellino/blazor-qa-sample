@@ -17,7 +17,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.LogOutHandler
             _signInManager = provider.GetService<SignInManager<ApplicationUser>>();
         }
 
-        public override async Task<dynamic> HandleAsync(LogOutCommand command)
+        protected override async Task<dynamic> ExecuteAsync(LogOutCommand command)
         {
             await _signInManager.SignOutAsync();
             return default;

@@ -20,7 +20,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.LogInHandler
             _signInManager = provider.GetService<SignInManager<ApplicationUser>>();
         }
 
-        public override async Task<dynamic> HandleAsync(LogInCommand command)
+        protected override async Task<dynamic> ExecuteAsync(LogInCommand command)
         {
             var applicationUser = await _userManager.FindByEmailAsync(command.Email.Trim().Normalize().ToLowerInvariant());
             var result = await _signInManager.PasswordSignInAsync(applicationUser != null ? applicationUser.UserName : string.Empty, command.Password, isPersistent: false, lockoutOnFailure: false);

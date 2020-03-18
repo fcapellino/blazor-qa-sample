@@ -20,7 +20,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.GetStatisticsHandler
             _dataProtector = provider.GetService<IDataProtectionProvider>().CreateProtector(Assembly.GetExecutingAssembly().FullName);
         }
 
-        public override async Task<dynamic> HandleAsync(GetStatisticsCommand command)
+        protected override async Task<dynamic> ExecuteAsync(GetStatisticsCommand command)
         {
             using var scope = _serviceScopeFactory.CreateScope();
             using var applicationDbContext = scope.ServiceProvider.GetService<ApplicationDbContext>();

@@ -21,7 +21,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.GetQuestionsListHandler
             _dataProtector = provider.GetService<IDataProtectionProvider>().CreateProtector(Assembly.GetExecutingAssembly().FullName);
         }
 
-        public override async Task<dynamic> HandleAsync(GetQuestionsListCommand command)
+        protected override async Task<dynamic> ExecuteAsync(GetQuestionsListCommand command)
         {
             using var scope = _serviceScopeFactory.CreateScope();
             using var applicationDbContext = scope.ServiceProvider.GetService<ApplicationDbContext>();

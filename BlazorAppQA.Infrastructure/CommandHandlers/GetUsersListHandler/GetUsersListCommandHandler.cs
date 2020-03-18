@@ -21,7 +21,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.GetUsersListHandler
             _dataProtector = provider.GetService<IDataProtectionProvider>().CreateProtector(Assembly.GetExecutingAssembly().FullName);
         }
 
-        public override async Task<dynamic> HandleAsync(GetUsersListCommand command)
+        protected override async Task<dynamic> ExecuteAsync(GetUsersListCommand command)
         {
             using var scope = _serviceScopeFactory.CreateScope();
             using var applicationDbContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
