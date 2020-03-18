@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -50,6 +51,10 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.SelectBestAnswerHandler
                 {
                     throw new CustomException("You already accepted this as the best answer.");
                 }
+
+                await applicationDbContext.Answers
+                     .Where(a => a.Id != selectedAnswer.Id && a.QuestionId == selectedAnswer.QuestionId)
+                     .ForEachAsync(a => { a.BestAnswer = false; });
 
                 selectedAnswer.BestAnswer = true;
                 await applicationDbContext.SaveChangesAsync();
