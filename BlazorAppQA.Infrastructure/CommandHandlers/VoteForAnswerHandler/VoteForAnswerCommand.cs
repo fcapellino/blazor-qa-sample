@@ -5,7 +5,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.VoteForAnswerHandler
     public class VoteForAnswerCommand
     {
         public string ProtectedAnswerId { get; set; }
-        public bool Upvote { get; set; }
+        public bool UpVote { get; set; }
     }
 
     public class VoteForAnswerCommandValidator
@@ -14,9 +14,6 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.VoteForAnswerHandler
         public VoteForAnswerCommandValidator()
         {
             RuleFor(x => x.ProtectedAnswerId)
-                .NotEmpty();
-
-            RuleFor(x => x.Upvote)
                 .NotEmpty();
         }
     }

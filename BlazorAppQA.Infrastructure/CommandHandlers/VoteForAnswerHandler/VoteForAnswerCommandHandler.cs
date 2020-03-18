@@ -36,7 +36,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.VoteForAnswerHandler
                 var answerId = int.Parse(_dataProtector.Unprotect(command.ProtectedAnswerId));
 
                 var submittedVote = await applicationDbContext.Votes
-                    .FirstOrDefaultAsync(v => v.UserId == userId && v.AnswerId == answerId && v.Upvote == command.Upvote);
+                    .FirstOrDefaultAsync(v => v.UserId == userId && v.AnswerId == answerId && v.Upvote == command.UpVote);
                 if (submittedVote != null)
                 {
                     throw new CustomException($"You already {(submittedVote.Upvote ? "upvoted" : "downvoted")} this answer.");
@@ -46,7 +46,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.VoteForAnswerHandler
                 {
                     UserId = userId,
                     AnswerId = answerId,
-                    Upvote = command.Upvote,
+                    Upvote = command.UpVote,
                     Date = DateTime.Now
                 };
 

@@ -42,15 +42,15 @@
                                     <small class="text-muted" style="width:60px;margin-bottom:10px;">@question.Date.ToString("dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture)</small>
                                 </div>
                                 <p>@question.Description</p>
-                                <div>
-                                    <small class="text-muted" style="font-style:italic;">Category: @(question.CategoryName).</small>
-                                    <small class="text-muted" style="font-style:italic;">Submitted by user <a class="text-warning" style="cursor:pointer;" @onclick="@(()=>OnUserClickAsync(question.User.ProtectedId.ToString()))" @onclick:stopPropagation="true">@(question.User.UserName).</a></small>
-                                </div>
-                                <div>
+                                <div class="mb-1">
                                     @foreach (object tag in (List<object>)question.Tags)
                                     {
                                         <span class="badge badge-secondary">@tag</span>
                                     }
+                                </div>
+                                <div style="font-style:italic;">
+                                    <small class="text-muted">Category: @(question.CategoryName).</small>
+                                    <small class="text-muted">Submitted by user <a class="text-warning" style="cursor:pointer;" @onclick="@(()=>OnUserClickAsync(question.User.ProtectedId.ToString()))" @onclick:stopPropagation="true">@(question.User.UserName).</a></small>
                                 </div>
                             </div>
                         </div>

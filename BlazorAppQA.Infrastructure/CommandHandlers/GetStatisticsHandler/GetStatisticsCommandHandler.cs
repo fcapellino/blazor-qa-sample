@@ -30,6 +30,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.GetStatisticsHandler
 
             var topUsersList = await applicationDbContext.Users
                .OrderByDescending(u => u.UserAnswers.Count)
+                    .ThenBy(u => u.UserName)
                .Take(5)
                .Select(u => new
                {
@@ -37,7 +38,6 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.GetStatisticsHandler
                    u.UserName,
                    AnswersProvided = u.UserAnswers.Count
                })
-               .OrderBy(u => u.UserName)
                .ToListAsync();
 
             return new

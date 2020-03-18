@@ -2,12 +2,16 @@
 using System.Threading.Tasks;
 using BlazorAppQA.Infrastructure.Common;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 
 namespace BlazorAppQA.Web.Common
 {
     public class CustomComponentBase : ComponentBase
     {
+        [Inject]
+        protected AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+
         [Inject]
         protected IServiceProvider ServiceProvider { get; set; }
 
@@ -16,6 +20,11 @@ namespace BlazorAppQA.Web.Common
 
         [Inject]
         protected NavigationManager NavigationManager { get; set; }
+
+        protected async Task<AuthenticationState> GetAuthenticationStateAsync()
+        {
+            return await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        }
 
         protected async Task ExecuteAsync(Func<Task> function)
         {

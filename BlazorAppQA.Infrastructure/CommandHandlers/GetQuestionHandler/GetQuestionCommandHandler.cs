@@ -45,7 +45,8 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.GetQuestionHandler
                     User = new
                     {
                         ProtectedId = _dataProtector.Protect(q.User.Id.ToString()),
-                        q.User.UserName
+                        q.User.UserName,
+                        q.User.Base64AvatarImage
                     },
                     Tags = q.TagsArray.Split(";", StringSplitOptions.None),
                     CategoryName = q.Category.Name,
@@ -57,12 +58,12 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.GetQuestionHandler
                         {
                             ProtectedId = _dataProtector.Protect(a.User.Id.ToString()),
                             a.User.UserName,
-                            Votes = (a.AnswerVotes.Count(v => v.Upvote) - a.AnswerVotes.Count(v => !v.Upvote))
+                            a.User.Base64AvatarImage
                         },
                         a.Description,
                         a.BestAnswer,
                         a.Date,
-                        a.AnswerVotes
+                        Votes = (a.AnswerVotes.Count(v => v.Upvote) - a.AnswerVotes.Count(v => !v.Upvote))
                     }),
                 })
                 .FirstOrDefaultAsync();
