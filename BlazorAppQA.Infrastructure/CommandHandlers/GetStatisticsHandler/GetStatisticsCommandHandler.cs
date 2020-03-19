@@ -29,14 +29,14 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.GetStatisticsHandler
             var totalAnswers = await applicationDbContext.Answers.CountAsync();
 
             var topUsersList = await applicationDbContext.Users
-               .OrderByDescending(u => u.UserAnswers.Count)
+               .OrderByDescending(u => u.UserAnswers.Count(a => a.BestAnswer))
                     .ThenBy(u => u.UserName)
                .Take(5)
                .Select(u => new
                {
                    ProtectedId = _dataProtector.Protect(u.Id.ToString()),
                    u.UserName,
-                   AnswersProvided = u.UserAnswers.Count
+                   AnswersProvided = u.UserAnswers.Count(a => a.BestAnswer)
                })
                .ToListAsync();
 
