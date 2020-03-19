@@ -16,7 +16,6 @@ namespace BlazorAppQA.Web.Pages
     {
         [Parameter]
         public string ProtectedId { get; set; }
-        public string ProtectedLoggedUserId { get; set; }
         public dynamic SubmittedQuestion { get; set; }
         public string ModalImage { get; set; }
         public bool ShowModalImage { get; set; }
