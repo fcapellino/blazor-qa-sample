@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-BlazorAppQA.Web-68383BE1-ED11-49FF-8A8F-16BC4E5D7F64</UserSecretsId>
+    <Authors>fabian.capellino@gmail.com</Authors>
   </PropertyGroup>
 
   <ItemGroup>
