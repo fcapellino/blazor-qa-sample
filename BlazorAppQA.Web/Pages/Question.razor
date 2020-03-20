@@ -21,7 +21,7 @@
                             <div class="mb-1">
                                 @foreach (object tag in (List<object>)SubmittedQuestion.Tags)
                                 {
-                                    <span class="badge badge-secondary">@tag</span>
+                                    <span class="badge badge-secondary" @key="@tag">@tag</span>
                                 }
                             </div>
                             <div style="text-align:left;font-style:italic;">
@@ -32,7 +32,7 @@
                             <div class="mr-3 mt-1" style="text-align:left;">
                                 @foreach (object image in (List<object>)SubmittedQuestion.Images)
                                 {
-                                    <img src="/qimages/@($"{image}.jpg")" style="border:1px solid black;cursor:pointer;" @onclick="@(()=>OnViewImageAsync(image.ToString()))" height="50" width="80">
+                                    <img src="/qimages/@($"{image}.jpg")" style="border:1px solid black;cursor:pointer;" @key="@image" @onclick="@(()=>OnViewImageAsync(image.ToString()))" height="50" width="80">
                                 }
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                             <hr>
                             @foreach (dynamic answer in answersList)
                             {
-                                <div class="card mb-3 flex-column align-items-start mt-3 @(answer.BestAnswer ? "border-success":"")">
+                                <div class="card mb-3 flex-column align-items-start mt-3 @(answer.BestAnswer ? "border-success":"")" @key="@answer.ProtectedId">
                                     @if (answer.BestAnswer)
                                     {
                                         <div style="width:100%;background-color:#93C54B!important;"><small>&nbsp The question owner accepted this as the best answer</small></div>

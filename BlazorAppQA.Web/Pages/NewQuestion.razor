@@ -29,7 +29,7 @@
                                     <option disabled selected value="" style="font-style:italic;">select a category</option>
                                     @foreach (var category in CategoriesList)
                                     {
-                                        <option value="@category.ProtectedId">@category.Name</option>
+                                        <option value="@category.ProtectedId" @key="@category.ProtectedId">@category.Name</option>
                                     }
                                 }
                             </select>

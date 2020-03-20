@@ -11,7 +11,7 @@
                         <option selected value="0" style="font-style:italic;">select a category</option>
                         @foreach (var category in CategoriesList)
                         {
-                            <option value="@category.ProtectedId">@category.Name</option>
+                            <option value="@category.ProtectedId" @key="@category.ProtectedId">@category.Name</option>
                         }
                     }
                 </select>
@@ -28,7 +28,7 @@
             {
                 @foreach (dynamic question in QuestionsList)
                 {
-                    <div class="list-group-item list-group-item-action flex-column align-items-start" style="cursor:pointer;" @onclick="@(()=>OnQuestionClickAsync(question.ProtectedId.ToString()))">
+                    <div class="list-group-item list-group-item-action flex-column align-items-start" style="cursor:pointer;" @key="@question.ProtectedId" @onclick="@(()=>OnQuestionClickAsync(question.ProtectedId.ToString()))">
                         <div class="media position-relative">
                             <div class="mr-3 mt-1">
                                 <div style="width:100px;height:100px;text-align:center;">
@@ -45,7 +45,7 @@
                                 <div class="mb-1">
                                     @foreach (object tag in (List<object>)question.Tags)
                                     {
-                                        <span class="badge badge-secondary">@tag</span>
+                                        <span class="badge badge-secondary" @key="@tag">@tag</span>
                                     }
                                 </div>
                                 <div style="font-style:italic;">
