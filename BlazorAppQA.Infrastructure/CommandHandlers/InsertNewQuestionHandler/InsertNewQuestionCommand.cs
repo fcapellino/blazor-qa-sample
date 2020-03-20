@@ -21,17 +21,21 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.InsertNewQuestionHandler
         {
             RuleFor(x => x.Title)
                 .NotEmpty()
+                    .WithMessage("Title must not be empty.")
                 .MaximumLength(200);
 
             RuleFor(x => x.Tags)
                 .NotEmpty()
-                .Must(x => Regex.IsMatch(x, @"[^;]+"));
+                    .WithMessage("You must enter a list of tags.")
+                .Must(x => Regex.IsMatch(x, @"[\w\s]+"));
 
             RuleFor(x => x.ProtectedCategoryId)
-                .NotEmpty();
+                .NotEmpty()
+                    .WithMessage("You must select a category.");
 
             RuleFor(x => x.Description)
                 .NotEmpty()
+                    .WithMessage("You must provide a description.")
                 .MaximumLength(1600);
 
             RuleFor(x => x.Files)

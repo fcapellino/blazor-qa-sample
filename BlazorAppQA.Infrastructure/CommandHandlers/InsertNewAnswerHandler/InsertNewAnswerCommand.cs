@@ -18,6 +18,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.InsertNewAnswerHandler
 
             RuleFor(x => x.Description)
                 .NotEmpty()
+                    .WithMessage("You must provide a description.")
                 .MaximumLength(1600);
         }
     }

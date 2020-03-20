@@ -37,7 +37,7 @@ namespace BlazorAppQA.Infrastructure.CommandHandlers.InsertNewQuestionHandler
                 using var scope = _serviceScopeFactory.CreateScope();
                 using var applicationDbContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-                var tagsArray = command.Tags.Split(";", StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim().ToLowerInvariant());
+                var tagsArray = command.Tags.Split("\u0020", StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim().ToLowerInvariant());
                 var newQuestion = new Question()
                 {
                     Title = command.Title.Trim(),
